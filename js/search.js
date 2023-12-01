@@ -2,9 +2,13 @@ const search = function () {
     const input = document.querySelector('.search-block > input');
     const searchBtn = document.querySelector('.search-block > button');
 
-    searchBtn.addEventListener('click', () => {
-        console.log(input.value);
-    })
+    try {
+        searchBtn.addEventListener('click', () => {
+            console.log(input.value);
+        })
+    } catch (e) {
+        console.error(e.message);
+    }
 }
 
 search();
