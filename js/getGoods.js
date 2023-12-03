@@ -1,5 +1,6 @@
 const getGoods = () => {
     const links = document.querySelectorAll('.navigation-link');
+    const more = document.querySelector('.more');
 
     const renderGoods = (goods) => {
         const goodsContainer = document.querySelector('.long-goods-list');
@@ -10,16 +11,16 @@ const getGoods = () => {
             goodBlock.classList.add('col-sm-6');
             goodBlock.innerHTML = `
                 <div class="goods-card">
-                    <span class="label">New</span>
-                    <img src="img/image-119.jpg" alt="image: Hoodie" class="goods-image">
-                    <h3 class="goods-title">Embroidered Hoodie</h3>
-                    <p class="goods-description">Yellow/Lilac/Fuchsia/Orange</p>
-                    <button class="button goods-card-btn add-to-cart" data-id="007">
-                        <span class="button-price">$89</span>
+                    <span class="label ${good.label ? null : 'd-none'}">${good.label}</span>
+                    <img src="db/${good.img}" alt="${good.name}" class="goods-image">
+                    <h3 class="goods-title">${good.name}</h3>
+                    <p class="goods-description">${good.description}</p>
+                    <button class="button goods-card-btn add-to-cart" data-id="${good.id}">
+                        <span class="button-price">$${good.price}</span>
                     </button>
                 </div>
             `
-            console.log(good);
+            goodsContainer.append(goodBlock)
         }) 
     }
 
@@ -48,8 +49,13 @@ const getGoods = () => {
     })
     if (localStorage.getItem('goods') && window.location.pathname === "/goods.html") {
         renderGoods(JSON.parse(localStorage.getItem('goods')))
-    } else {
-        
+    } 
+    
+    if (more) {
+        more.addEventListener('click', () => {
+            event.preventDefault();
+            getData();
+        })
     }
 
 }
